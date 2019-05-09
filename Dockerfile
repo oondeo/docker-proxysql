@@ -16,17 +16,17 @@ RUN export GNUPGHOME="$(mktemp -d)" \
 	&& rm -rf "$GNUPGHOME" /tmp/percona-release.rpm \
 	&& rpm --import /etc/pki/rpm-gpg/PERCONA-PACKAGING-KEY \
 	&& percona-release disable all \
-&& percona-release enable tools release
+&& percona-release enable ps-80 release && percona-release enable tools release
 
 ENV PROXYSQL_VERSION="2.0.3-1.1.el7"  \
     PERCONA_VERSION="8.0.15-6.1.el7"
 
 RUN yum install -y \
         percona-server-client-${PERCONA_VERSION} \
-		https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/proxysql2-${PROXYSQL_VERSION}.x86_64.rpm \
+		proxysql2-${PROXYSQL_VERSION} \
 		which \
 		policycoreutils \
-        pwgen wget jw \
+        pwgen wget jq \
 	&& yum clean all \
     && rm -rf /var/cache/yum /var/lib/proxysql
 
