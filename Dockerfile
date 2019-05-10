@@ -32,6 +32,8 @@ RUN yum install -y \
 
 ADD proxysql.cnf /etc/proxysql/proxysql.cnf
 ADD proxysql-admin.cnf /etc/proxysql/
+ADD proxysql-admin-node.sh /usr/bin/proxysql-admin
+RUN chmod +x /usr/bin/proxysql-admin
 
 COPY proxysql-entry.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
